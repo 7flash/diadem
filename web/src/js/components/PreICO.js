@@ -169,7 +169,8 @@ export default class Home extends Component {
 
     this.state.tokenContract.deployed().then(instance => {
       return instance.balanceOf.call(account).then((balance) => {
-        this.setState({ balance: balance.div(new BigNumber.BigNumber(10).pow(18)).toNumber() });
+        debugger;
+        this.setState({ balance: balance.div(new this.state.web3.BigNumber(10).pow(18)).toNumber() });
       });
     });
   }
@@ -181,27 +182,13 @@ export default class Home extends Component {
           <InfographicSection className="infographic__section infographic__section--start">
             <div className="infographic__section-header">
               <Headline size="medium" strong={true} margin="none">Decentralized achievements network</Headline>
-              <Heading tag="h4" margin="none">Tokensale address: {this.state.tokensaleAddress}</Heading>
-              <Heading tag="h4" margin="none">Token address: {this.state.tokenAddress}</Heading>
-              <Heading tag="h4" margin="none">Your balance: {this.state.balance} DIADEM</Heading>
+              <Heading tag="h4" margin="none">{this.state.tokenAddress} (Your balance: {this.state.balance} DIADEM)</Heading>
+              <Heading tag="h4" margin="none">Get in touch: team@challenge.do</Heading>
             </div>
             <Headline size="small">
               The economy built upon blockchain and social networks would give everyone transparent access
                 to the capital and motivation in order to develop the society. <Anchor label="Whitepaper" primary={true} href="https://docs.google.com/document/d/1xgqRX8RsMuJfJsYH3nm3h_Lsbi5d2SQ1C-kDmCJANYk/edit?usp=sharing" target="_blank" />
             </Headline>
-              <Form plain={true} onSubmit={this._onSubmit}>
-                <Box direction="row" justify="center">
-                <FormField label="ETH"><TextInput value={this.state.eth} onDOMChange={this._onChangeEth} /></FormField>
-                <FormField label="DIADEM"><TextInput value={this.state.diadem} onDOMChange={this._onChangeDiadem} /></FormField>
-                <Button className="tip-button" primary={true} type="submit" onClick={this._onSubmit} />
-                </Box>
-              </Form>
-            {this.state.metamaskLayer &&
-            <Headline size="small">
-              <div>Please connect to MetaMask and refresh the page</div>
-              <div>Also you can manually send {this.state.eth} ETH directly to {this.state.tokensaleAddress}</div>
-            </Headline>
-            }
           </InfographicSection>
         </div>
       </Article>
